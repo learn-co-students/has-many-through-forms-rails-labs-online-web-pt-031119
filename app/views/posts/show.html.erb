@@ -1,20 +1,22 @@
 <h1>Post</h1>
 
-<%=@post.title%>
-<%=@post.content%>
-<%@comments.each do |comment|%>
-  <%=comment.content%>
+<%=@post.title%><br>
+<%=@post.content%><br>
+
+<%Comment.all.each do |comment|%>
+  <%=comment.user.username%> says: <%=comment.content%><br>
 <%end%>
 
 <%=form_for @comment do |form|%>
   <%=form.hidden_field :post_id, value: @post.id%>
   <%=form.label :content%>
-  <%=form.text_field :content%>
-  <%=form.text_field :user_id, list:'user_id_autocomplete'%>
-  <datalist id='user_id_autocomplete'>
-    <%User.all.each do |user|%>
-      <option value='<%=user.username%>'>
-    <%end%>
-  </datalist>
+  <%=form.text_field :content%><br>
+  <%=form.collection_select :user_id, User.all, :id, :username%><br>
+
+  <%=form.fields_for :user do |userInfo|%>
+    <%=userInfo.label :username%>
+    <%=userInfo.text_field :username%><br>
+  <%end%>
+
   <%=form.submit%>
 <%end%>
