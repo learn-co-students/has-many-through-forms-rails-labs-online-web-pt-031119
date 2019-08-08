@@ -5,6 +5,11 @@
   <%=form.text_field :title%><br>
   <%=form.label :content%>
   <%=form.text_area :content%><br>
+  <%=form.collection_check_boxes :category_ids, Category.all, :id, :name%><br>
+  <%=form.fields_for :categories, @post.categories.build do |attribute|%>
+    <%=attribute.label :name%>
+    <%=attribute.text_field :name%><br>
+  <%end%>
 
 
   <%=form.submit%>
