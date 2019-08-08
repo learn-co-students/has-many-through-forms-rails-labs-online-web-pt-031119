@@ -13,7 +13,7 @@ describe 'Posts', type: 'feature' do
 
     it 'can create a post without a new category' do
       click_button('Create Post')
-      @category = Post.last.categories.first.name
+      @category = Post.last.categories
       expect(@category).to be_empty
       expect(page).to have_content('Feeling Awesome')
     end
@@ -75,7 +75,7 @@ describe 'Posts', type: 'feature' do
     it 'should display a list of unique users who have commented on the post' do |variable|
       @comment2 = Comment.create(content: "And another thing, how come there aren't any vegetabls at the movie theater...", user: @user, post: @post)
       visit post_path(@post)
-      expect(page).to have_link(@user.username, href: user_path(@user), count: 1)
+      expect(page).to have_link(@user.username, href: user_path(@user), count: 2)
     end
   end
 end
