@@ -2,7 +2,7 @@
 
 <h2>Categories:</h2>
   <ul>    
-    <% @post.categories.all.each do |cat| %>
+    <% @post.categories.each do |cat| %>
         <li><%= cat.name %></li>
     <% end %>
 </ul>
@@ -12,8 +12,15 @@
 
 <h2>Comments:</h2>
   <ul>
-    <% @post.comments.all.distinct.each do |com| %> 
-        <li><%= link_to com.user.username, user_path(com.user) %> says: <%= com.content %></li> 
+    <% @post.comments.distinct.each do |com| %> 
+        <li><%= com.user.username %> says: <%= com.content %></li> 
+    <% end %>
+  </ul>
+
+  <h2>Commentors:</h2>
+  <ul>
+    <% @post.users.distinct.each do |user| %> 
+        <li><%= link_to user.username, user_path(user) %></li> 
     <% end %>
   </ul>
   
@@ -26,7 +33,7 @@
     <%= f.hidden_field :post_id %> 
 
     <%= f.fields_for :user, User.new do |users_fields| %> 
-        <%= users_fields.text_field :username, id: "comment_user_attributes_username" %>
+        <%= users_fields.text_field :username %>
     <% end %>
 
     <%= f.submit %> 
