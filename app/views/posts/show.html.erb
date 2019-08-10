@@ -25,9 +25,7 @@
     <%= f.collection_select :user_id, User.all, :id, :username %>
     <%= f.hidden_field :post_id %> 
 
-    <%= f.fields_for :users, comment.users.build do |users_fields| %>
-        <%= users_fields.text_field :username %>
-    <% end %>
+   
 
     <%= f.submit %> 
 <% end %> 
