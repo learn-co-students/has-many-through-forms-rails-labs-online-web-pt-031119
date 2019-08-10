@@ -12,9 +12,9 @@
 
 <h2>Comments:</h2>
   <ul>
-    <% @post.comments.all.distinct.each do |com| %>
+    <% @post.comments.all.distinct.each do |com| %> 
         <li><%= com.user.username %> says: <%= com.content %></li> 
-    <%end %>
+    <% end %>
   </ul>
   
 <h2>New Comment:</h2>
@@ -25,7 +25,9 @@
     <%= f.collection_select :user_id, User.all, :id, :username %>
     <%= f.hidden_field :post_id %> 
 
-   
+    <%= f.fields_for :user, User.new do |users_fields| %> 
+        <%= users_fields.text_field :username, id: "comment_user_attributes_username" %>
+    <% end %>
 
     <%= f.submit %> 
 <% end %> 
