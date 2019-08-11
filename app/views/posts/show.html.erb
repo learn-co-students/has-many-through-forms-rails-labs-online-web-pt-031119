@@ -1,1 +1,35 @@
+<h2><%= @post.title %></h2>
 
+<p><%= @post.content %></p>
+
+<h4>Categories:</h4>
+<p>
+<%= @post.categories.map {|cat| cat.name}.join(', ') %>
+</p>
+
+<h4>Comments:</h4>
+<ul>
+<% @post.comments.each do |comment| %>
+    <li><%= "#{comment.user.username} says: #{comment.content}" %></li>
+<% end %>
+</ul>
+
+<h4>Users interested in this post:</h4>
+<ul>
+<% @post.users.uniq.each do |user| %>
+    <li><%= link_to user.username, user_path(user) %></li>
+<% end %>
+</ul>
+
+<h4>Add a comment:</h4>
+<%= form_for @comment do |f| %>
+    <%= f.hidden_field :post_id, value: @post.id %>
+    <%= f.text_area :content %><br>
+    <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %>
+    New user?
+    <%= f.fields_for :user, @comment.build_user do |user_field| %>
+        <%= user_field.text_field :username %>
+    <% end %><br><br>
+
+    <%= f.submit %>
+<% end %>
