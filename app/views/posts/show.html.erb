@@ -4,7 +4,7 @@
 <p>Categories: <%= @post.categories.map(&:name).join(' ') %></p>
 <ul>
   <% @post.comments.each do |comment| %>
-    <li><%= comment.user.username %> commented: <%= comment.content %></li>
+    <li><%= comment.user.username %> says: <%= comment.content %></li>
   <% end %>
 </ul>
 
