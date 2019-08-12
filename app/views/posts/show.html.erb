@@ -1,1 +1,19 @@
 
+
+<h2><%=@post.title%></h2>
+<br>
+<h3><%=@post.content%> </h3>
+ 
+<% @post.categories.each do |cat|%>
+ <h3>Post Category:<%= cat.name%> </h3>
+<%end%>
+<% @post.comments.each do |com|%>
+ <br><h3>Post Comments Category:<%= com.content%> </h3>
+<%end%>
+
+<% @post.users.distinct.each do |user| %>
+  <li>
+    <%= link_to user.username, user_path(user) %>
+  </li>
+<% end %>
+</ul>
