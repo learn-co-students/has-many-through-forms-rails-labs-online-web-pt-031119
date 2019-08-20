@@ -1,1 +1,15 @@
+<h1><%=@post.title%></h1>
 
+<p><%=@post.content%></p>
+
+<% @post.comments.each do |c| %>
+  <p><%=c.content%></p>
+<% end %>
+
+<%@post.users.uniq.each do |u|%>
+<p><%=u.name%></p>
+<% end %>
+
+<%= form_for @post do |f| %>
+<%= 
+<% end %>
